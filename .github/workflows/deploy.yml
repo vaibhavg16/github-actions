@@ -34,7 +34,7 @@ jobs:
           fi
 
           # Copy portfolio file to web root
-          sudo cp vaibhav-godse-portfolio.html /var/www/html/index.html
+          sudo cp index.html /var/www/html/index.html
           
       
       - name: Deploy the code
