@@ -3,7 +3,7 @@ name: Test
 
 # When the workflow should run.
 on:
-  push:
+  workflow_call:
     # push: whenever code is pushed to GitHub, the workflow automatically runs. 
     # workflow_call: when this workflow needs to be called from another workflow.
     # workflow_dispatch: whenever you want the workflow to be called manually 
