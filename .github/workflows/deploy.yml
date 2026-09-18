@@ -19,4 +19,4 @@ jobs:
     # Steps in workflow.
     steps:
       - name: Deploy the code
-        run: echo "Code Deployed to AWS EC@ instance"
+        run: echo "Code Deployed to AWS EC2 instance"
