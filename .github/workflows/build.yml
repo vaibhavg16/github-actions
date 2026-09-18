@@ -1,0 +1,19 @@
+# Name of the Workflow.
+name: Build
+
+# When the workflow should run.
+on:
+  workflow_call:
+  # push: whenever code is pushed to GitHub, the workflow automatically runs. 
+  # workflow_call: when this workflow needs to be called from another workflow.
+  # workflow_dispatch: whenever you want the workflow to be called manually 
+  # schedule: whenever you want the workflow to run at a specific time.
+  
+# Jobs in workflow. 
+jobs:
+  code-checkout:
+    runs-on: ubuntu-latest
+    # Steps in workflow.
+    steps:
+      - name: Build the code
+        run: echo "Code Built using Docker"
