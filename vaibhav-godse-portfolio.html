@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaibhav Godse — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0e13;
+    --bg-alt: #10141c;
+    --surface: #151b25;
+    --surface-2: #1a212d;
+    --border: #262f3d;
+    --text: #e7eaef;
+    --text-dim: #8b95a5;
+    --text-faint: #5b6579;
+    --accent: #e2a63b;
+    --accent-soft: rgba(226, 166, 59, 0.12);
+    --accent-2: #5aa9c9;
+    --green: #5fbf87;
+    --green-soft: rgba(95, 191, 135, 0.12);
+    --radius: 3px;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  :root:not([data-theme="light"]) { color-scheme: dark; }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f6f5f1;
+      --bg-alt: #efeee8;
+      --surface: #ffffff;
+      --surface-2: #f2f1ec;
+      --border: #ddd9cf;
+      --text: #1b1e24;
+      --text-dim: #565f6e;
+      --text-faint: #8a8f99;
+      --accent: #b97a1a;
+      --accent-soft: rgba(185, 122, 26, 0.1);
+      --accent-2: #29708f;
+      --green: #2f8f5b;
+      --green-soft: rgba(47, 143, 91, 0.1);
+      color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f5f1;
+    --bg-alt: #efeee8;
+    --surface: #ffffff;
+    --surface-2: #f2f1ec;
+    --border: #ddd9cf;
+    --text: #1b1e24;
+    --text-dim: #565f6e;
+    --text-faint: #8a8f99;
+    --accent: #b97a1a;
+    --accent-soft: rgba(185, 122, 26, 0.1);
+    --accent-2: #29708f;
+    --green: #2f8f5b;
+    --green-soft: rgba(47, 143, 91, 0.1);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .brand span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    font-size: 13.5px;
+    font-family: var(--mono);
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .theme-toggle {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: var(--radius);
+    padding: 5px 9px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 64px 0 48px;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent-2);
+    margin-bottom: 14px;
+  }
+  .terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -25px rgba(0,0,0,0.5);
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #e0645a; }
+  .dot.y { background: #e0b04f; }
+  .dot.g { background: #57b06a; }
+  .term-title {
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .term-body {
+    padding: 22px 20px 26px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .prompt { color: var(--green); }
+  .prompt .path { color: var(--accent-2); }
+  .cmd { color: var(--text); }
+  .out { color: var(--text-dim); padding-left: 0; }
+  .out strong { color: var(--text); font-weight: 600; }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 22px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+  }
+  .hero-links a {
+    text-decoration: none;
+    color: var(--text-dim);
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 46px 0; border-top: 1px solid var(--border); }
+  .sec-head {
+    font-family: var(--mono);
+    font-size: 14.5px;
+    color: var(--text-faint);
+    margin-bottom: 22px;
+  }
+  .sec-head .who { color: var(--green); }
+  .sec-head .at { color: var(--text-faint); }
+  .sec-head .host { color: var(--accent-2); }
+  .sec-head .cmd2 { color: var(--text); }
+
+  h2.title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .sec-sub {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    margin-bottom: 26px;
+    max-width: 60ch;
+  }
+
+  /* About */
+  .about-text { max-width: 62ch; color: var(--text-dim); font-size: 15.5px; }
+  .about-text p + p { margin-top: 14px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+
+  /* Skills */
+  .skill-groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 560px) { .skill-groups { grid-template-columns: 1fr; } }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .skill-card h3 {
+    font-size: 12px;
+    font-family: var(--mono);
+    text-transform: none;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+  .skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 6px 0;
+    border-top: 1px dashed var(--border);
+  }
+  .skill-row:first-of-type { border-top: none; }
+  .skill-name { font-family: var(--mono); }
+  .status {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--green-soft);
+    color: var(--green);
+  }
+  .status.learning {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  /* Experience */
+  .xp-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+  }
+  .xp-item:first-child { border-top: none; padding-top: 0; }
+  .xp-date {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+    padding-top: 2px;
+  }
+  .xp-role { font-weight: 700; font-size: 16px; }
+  .xp-org { color: var(--accent-2); font-size: 14px; margin-top: 2px; margin-bottom: 10px; }
+  .xp-item ul { padding-left: 18px; color: var(--text-dim); font-size: 14.5px; }
+  .xp-item li { margin-bottom: 5px; }
+  @media (max-width: 560px) {
+    .xp-item { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* Projects */
+  .proj-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .proj-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .proj-name {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .proj-name:hover { color: var(--accent); }
+  .proj-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+  .proj-desc { color: var(--text-dim); font-size: 14.5px; margin-top: 8px; }
+  .proj-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 12px;
+  }
+  .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+  .building-list {
+    margin-top: 4px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .building-list li { margin-bottom: 6px; list-style: none; padding-left: 18px; position: relative; }
+  .building-list li::before {
+    content: "○";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 5px;
+  }
+
+  /* Certifications */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
+  .cert-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    background: var(--surface);
+  }
+  .cert-name { font-weight: 600; font-size: 14.5px; margin-bottom: 4px; }
+  .cert-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  /* Education */
+  .edu-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .edu-degree { font-weight: 700; font-size: 16px; }
+  .edu-school { color: var(--accent-2); font-size: 14px; margin-top: 2px; }
+
+  /* Footer / contact */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 50px 0 60px;
+  }
+  .contact-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 26px;
+    text-align: left;
+  }
+  .contact-box h2 { font-size: 20px; margin-bottom: 8px; }
+  .contact-box p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 20px; max-width: 50ch; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+  }
+  @media (max-width: 560px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-grid a, .contact-grid span { text-decoration: none; color: var(--text-dim); }
+  .contact-grid a:hover { color: var(--accent); }
+  .contact-grid .k { color: var(--text-faint); margin-right: 8px; }
+  .footnote {
+    margin-top: 30px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">vaibhav<span>@</span>godse<span>:~$</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#certs">certs</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" type="button">◐ theme</button>
+  </div>
+</header>
+
+<div class="wrap" id="top">
+  <section class="hero" style="border-top:none;">
+    <div class="hero-eyebrow">// linux &amp; devops engineer, based in nashik, india</div>
+
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">vaibhav@nashik — bash</span>
+      </div>
+      <div class="term-body">
+        <div><span class="prompt">vaibhav@nashik</span><span class="cmd">:~$ whoami</span></div>
+        <div class="out"><strong>Vaibhav Godse</strong> — DevOps Engineer / Linux Administrator</div>
+        <div>&nbsp;</div>
+        <div><span class="prompt">vaibhav@nashik</span><span class="cmd">:~$ cat status.txt</span></div>
+        <div class="out">Open to full-time DevOps &amp; Linux Administrator roles</div>
+        <div class="out">Hands-on with Linux, Docker, Kubernetes, Git &amp; GitHub Actions</div>
+        <div>&nbsp;</div>
+        <div><span class="prompt">vaibhav@nashik</span><span class="cmd">:~$ _<span class="cursor"></span></span></div>
+      </div>
+    </div>
+
+    <div class="hero-links">
+      <a href="https://github.com/vaibhavg16" target="_blank" rel="noopener">github.com/vaibhavg16</a>
+      <a href="https://www.linkedin.com/in/vaibhavgodse16122002/" target="_blank" rel="noopener">linkedin.com/in/vaibhavgodse16122002</a>
+      <a href="mailto:godsevaibhav201@gmail.com">godsevaibhav201@gmail.com</a>
+      <a href="tel:+918080231458">+91 80802 31458</a>
+      <span>Nashik, Maharashtra</span>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ cat about.md</span></div>
+    <h2 class="title">About</h2>
+    <div class="about-text">
+      <p>I'm a Linux and DevOps engineer based in Nashik, India, moving from a year of hands-on technical support into infrastructure and automation work. That year at <strong>Aress Software</strong> put me in front of real Linux environments daily — troubleshooting, ticket resolution, and keeping systems running — and it's what pointed me toward DevOps as a career.</p>
+      <p>Since then I've been building out the toolkit: <strong>Docker</strong> and <strong>Kubernetes</strong> for containers and orchestration, <strong>Git &amp; GitHub Actions</strong> for version control and CI/CD, and steadily deeper Linux administration. I document the process publicly in a <strong>90 Days of DevOps</strong> series on GitHub, and I'm currently working through Terraform and cloud infrastructure on AWS.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ systemctl status skills</span></div>
+    <h2 class="title">Skills</h2>
+    <p class="sec-sub">Core tools I use day to day, plus what's actively in progress.</p>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>// systems</h3>
+        <div class="skill-row"><span class="skill-name">Linux Administration</span><span class="status">active</span></div>
+        <div class="skill-row"><span class="skill-name">Shell / Bash Scripting</span><span class="status">active</span></div>
+        <div class="skill-row"><span class="skill-name">Networking Fundamentals</span><span class="status">active</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>// containers &amp; orchestration</h3>
+        <div class="skill-row"><span class="skill-name">Docker</span><span class="status">active</span></div>
+        <div class="skill-row"><span class="skill-name">Kubernetes</span><span class="status learning">learning</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>// version control &amp; ci/cd</h3>
+        <div class="skill-row"><span class="skill-name">Git &amp; GitHub</span><span class="status">active</span></div>
+        <div class="skill-row"><span class="skill-name">GitHub Actions</span><span class="status">active</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>// cloud</h3>
+        <div class="skill-row"><span class="skill-name">AWS</span><span class="status learning">learning</span></div>
+        <div class="skill-row"><span class="skill-name">Terraform</span><span class="status learning">learning</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ cat experience.log</span></div>
+    <h2 class="title">Experience</h2>
+
+    <div class="xp-item">
+      <div class="xp-date">Nov 2024 — Nov 2025</div>
+      <div>
+        <div class="xp-role">Technical Support Engineer</div>
+        <div class="xp-org">Aress Software</div>
+        <ul>
+          <li>Provided day-to-day technical support and troubleshooting across Linux-based environments.</li>
+          <li>Built a working foundation in system administration, ticket resolution, and production environment management.</li>
+          <li>Used this hands-on exposure to Linux systems as the launchpad into DevOps.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-date">Nov — Dec 2021</div>
+      <div>
+        <div class="xp-role">Campus Leader (Internship)</div>
+        <div class="xp-org">Techlearn.live</div>
+        <ul>
+          <li>Led campus outreach and coordination as part of a one-month internship program.</li>
+          <li>Recognized for leadership and team management.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ git log --projects</span></div>
+    <h2 class="title">Projects</h2>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <a class="proj-name" href="https://github.com/vaibhavg16/90DaysOfDevOps-2026" target="_blank" rel="noopener">90 Days of DevOps →</a>
+        <span class="proj-tag">public repo</span>
+      </div>
+      <div class="proj-desc">A hands-on, public learning log working through Linux, Docker, Kubernetes, Git/GitHub Actions, and cloud infrastructure — day by day, with real exercises rather than just notes.</div>
+      <div class="proj-stack">
+        <span class="pill">Linux</span>
+        <span class="pill">Docker</span>
+        <span class="pill">Kubernetes</span>
+        <span class="pill">GitHub Actions</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-name" style="cursor:default;">Currently building</span>
+        <span class="proj-tag">in progress</span>
+      </div>
+      <ul class="building-list">
+        <li>CI/CD pipelines using GitHub Actions for containerized applications</li>
+        <li>Terraform-based AWS infrastructure deployments</li>
+        <li>Linux administration and troubleshooting labs</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ ls -la certifications/</span></div>
+    <h2 class="title">Certifications</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-name">Red Hat Certified Engineer (RHCE) EX294 — Advanced Linux</div>
+        <div class="cert-meta">Udemy · Oct 2024</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">AWS DevOps Masterclass (Hindi)</div>
+        <div class="cert-meta">Train with Shubham · Apr 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Three-Tier Application Deployment with GitHub Actions</div>
+        <div class="cert-meta">Train with Shubham · Apr 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Agentic AI for DevOps — Masterclass</div>
+        <div class="cert-meta">Train with Shubham · May 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Fundamental Cloud &amp; DevOps Training Program</div>
+        <div class="cert-meta">Exlearn Technologies · Dec 2025</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Campus to Technical Careers Training Program</div>
+        <div class="cert-meta">Capgemini / TNS India Foundation · 2023–2024</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" style="padding-bottom:0;">
+    <div class="sec-head"><span class="who">vaibhav</span><span class="at">@</span><span class="host">nashik</span><span class="cmd2">:~$ cat education.txt</span></div>
+    <h2 class="title">Education</h2>
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree">Bachelor of Engineering, Computer Engineering</div>
+        <div class="edu-school">MET Bhujbal Knowledge City</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's talk</h2>
+      <p>Looking for a DevOps Engineer or Linux Administrator to join your team — happy to walk through any of the above in more detail.</p>
+      <div class="contact-grid">
+        <div><span class="k">email</span><a href="mailto:godsevaibhav201@gmail.com">godsevaibhav201@gmail.com</a></div>
+        <div><span class="k">phone</span><a href="tel:+918080231458">+91 80802 31458</a></div>
+        <div><span class="k">github</span><a href="https://github.com/vaibhavg16" target="_blank" rel="noopener">vaibhavg16</a></div>
+        <div><span class="k">linkedin</span><a href="https://www.linkedin.com/in/vaibhavgodse16122002/" target="_blank" rel="noopener">vaibhavgodse16122002</a></div>
+        <div><span class="k">location</span><span>Nashik, Maharashtra, India</span></div>
+      </div>
+    </div>
+    <div class="footnote">vaibhav@nashik:~$ exit — thanks for reading</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    var saved = null;
+    try { saved = localStorage.getItem('vg-theme'); } catch (e) {}
+    if (saved) root.setAttribute('data-theme', saved);
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('vg-theme', next); } catch (e) {}
+    });
+  })();
+</script>
+
+</body>
+</html>
