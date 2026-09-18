@@ -20,22 +20,27 @@ jobs:
     steps:
       - name: Clone Code
         uses: actions/checkout@v7
-      - name: Deploy via Nginx
+      - name: Ensure Nginx and Deploy
         run: |
+          export DEBIAN_FRONTEND=noninteractive
+
           # Check if Nginx is installed
           if ! command -v nginx &> /dev/null; then
-            echo "Nginx not found. Installing Nginx..."
-            sudo apt-get update -y
-            sudo apt-get install -y nginx
+            echo "Nginx not found. Installing..."
+            sudo -E apt-get update -y
+            sudo -E apt-get install -y nginx
             sudo systemctl enable nginx
             sudo systemctl start nginx
           else
             echo "Nginx is already installed. Skipping installation."
           fi
 
-          # Copy portfolio file to web root
-          sudo cp index.html /var/www/html/index.html
-          
+          # Ensure Nginx service is actively running
+          sudo systemctl is-active --quiet nginx || sudo systemctl start nginx
+
+          # Copy website file (No sudo needed if directory permissions are pre-configured)
+          cp index.html /var/www/html/index.html
+          chmod 644 /var/www/html/index.html
       
       - name: Deploy the code
         run: echo "Code Deployed to AWS EC2 instance"
