@@ -40,7 +40,7 @@ jobs:
 
           # Copy website file (No sudo needed if directory permissions are pre-configured)
           cp index.html /var/www/html/index.html
-          chmod 644 /var/www/html/index.html
+       
       
       - name: Deploy the code
         run: echo "Code Deployed to AWS EC2 instance"
